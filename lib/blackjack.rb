@@ -40,24 +40,25 @@ end
 
 def hit?(card_total = 0)  
   # code hit? here
-  while(card_total < 21)
+  prompt_user
+    
+  input = get_user_input
+    
+  case input
+  when 's'
+    display_card_total(card_total)
+    return card_total
+  when 'h'
+    card_total += deal_card
+    display_card_total(card_total)
+    return card_total
+  else
+    invalid_command
     prompt_user
-    
     input = get_user_input
-    
-    case input
-      when 's'
-        return card_total
-      when 'h'
-        card_total += deal_card
-        return card_total
-      else
-        invalid_command
-        prompt_user
-        input = get_user_input
-    end
   end
 end
+
 
 
 def invalid_command
@@ -71,4 +72,12 @@ end
 
 def runner
   # code runner here
+  welcome
+  card_total = initial_round
+  while card_total < 21
+    card_total = hit?(card_total)
+  end
+  end_game(card_total)
 end
+
+runner
