@@ -20,6 +20,7 @@ end
 
 def get_user_input
   # code #get_user_input here
+  ARGV.clear
   input = gets.chomp
   return input
 end
@@ -41,16 +42,12 @@ end
 def hit?(card_total = 0)  
   # code hit? here
   prompt_user
-    
   input = get_user_input
-    
   case input
   when 's'
-    display_card_total(card_total)
     return card_total
   when 'h'
     card_total += deal_card
-    display_card_total(card_total)
     return card_total
   else
     invalid_command
@@ -76,6 +73,7 @@ def runner
   card_total = initial_round
   while card_total < 21
     card_total = hit?(card_total)
+    display_card_total(card_total)
   end
   end_game(card_total)
 end
